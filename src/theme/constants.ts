@@ -4,6 +4,9 @@ export const colors = Object.freeze({
   black: '#000000DE',
   transparent: 'transparent',
   grey: 'grey',
+
+  //error
+  error: '#ef5350',
 });
 
 export const fontWeight = Object.freeze({

@@ -2,15 +2,18 @@ import React from 'react';
 import {FieldError} from 'react-hook-form';
 import {
   NativeSyntheticEvent,
-  Text,
+  StyleSheet,
   TextInputFocusEventData,
+  View,
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
+import {ErrorMessage} from '../theme/infoMessages';
 
 interface CustomInputProps {
   value: string;
   onChange: (text: string) => void;
   error: FieldError | undefined;
+  label: string;
   onBlur:
     | ((e: NativeSyntheticEvent<TextInputFocusEventData>) => void)
     | undefined;
@@ -21,17 +24,24 @@ export const CustomInput = ({
   onChange,
   onBlur,
   error,
+  label,
 }: CustomInputProps) => {
   return (
-    <>
+    <View style={styles.conatiner}>
       <TextInput
-        label="Email"
+        label={label}
         value={value}
         onChangeText={onChange}
         onBlur={onBlur}
         mode="outlined"
       />
-      {error && <Text> {error.message} </Text>}
-    </>
+      {error && <ErrorMessage message={error.message} />}
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  conatiner: {
+    marginBottom: 20,
+  },
+});
