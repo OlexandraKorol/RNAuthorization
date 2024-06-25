@@ -9,35 +9,13 @@
  */
 
 import React from 'react';
-import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
-import {useForm, Controller} from 'react-hook-form';
+import {StyleSheet, View} from 'react-native';
+import {LogInScreen} from './src/screens/auth/LogInScreen';
 
 const App = () => {
-  const {control, handleSubmit} = useForm();
-  const onSubmit = data => console.log(data);
-
   return (
     <View style={styles.sectionContainer}>
-      <Controller
-        control={control}
-        name="username"
-        render={({field: {value, onChange, onBlur}}) => (
-          <TextInput
-            value={value}
-            onChangeText={onChange}
-            onBlur={onBlur}
-            placeholder="username"
-          />
-        )}
-      />
-
-      <Controller
-        control={control}
-        name="password"
-        render={() => <TextInput placeholder="password" />}
-      />
-
-      <Button title="Log In" onPress={handleSubmit(onSubmit)} />
+      <LogInScreen />
     </View>
   );
 };
