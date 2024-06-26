@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {useCallback, useEffect, useState} from 'react';
 
-export const useDataFetch = (param: string) => {
+export const useDataImageItemFetch = (param: string) => {
   const [isLoading, setIsLoading] = useState(false);
   const [response, setResponse] = useState<any>();
   const [isError, setIsError] = useState(false);

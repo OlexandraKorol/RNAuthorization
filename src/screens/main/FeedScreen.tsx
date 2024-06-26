@@ -1,11 +1,12 @@
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {FlatList, StyleSheet, View} from 'react-native';
 import React, {useCallback, useState} from 'react';
 import {ImageItem} from '../../components/ImageItem';
-import {useDataFetch} from '../../utils/useDataFetch';
-import {Loading} from '../../theme/infoMessages';
+import {useDataImageItemFetch} from '../../utils/useDataImageItemFetch';
+import {ErrorMessage} from '../../theme/infoMessages';
+import {colors} from '../../theme/constants';
 
 export const FeedScreen = () => {
-  const {response, isLoading, isError, refetch} = useDataFetch('list');
+  const {response, refetch, isError} = useDataImageItemFetch('list');
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = useCallback(() => {
@@ -19,8 +20,8 @@ export const FeedScreen = () => {
       });
   }, [refetch]);
 
-  if (isLoading) {
-    return <Loading />;
+  if (!response || isError) {
+    return <ErrorMessage message={'Something went wrong'} />;
   }
 
   return (
@@ -43,6 +44,7 @@ export const FeedScreen = () => {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
-    marginBottom: 35,
+    paddingVertical: 35,
+    backgroundColor: colors.white,
   },
 });

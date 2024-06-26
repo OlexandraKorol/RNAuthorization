@@ -10,11 +10,11 @@ import {
 import React from 'react';
 import {useForm, Controller} from 'react-hook-form';
 import {CustomInput} from '../../components/CustomInput';
-import {Button} from 'react-native-paper';
 import {colors} from '../../theme/constants';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '../../components/Navigation';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {CustomButton} from '../../components/CustomButton';
 
 export const LogInScreen = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -89,9 +89,7 @@ export const LogInScreen = () => {
               )}
             />
 
-            <Button mode="contained" onPress={handleSubmit(onSubmit)}>
-              Log In
-            </Button>
+            <CustomButton text={'Log In'} onSubmit={handleSubmit(onSubmit)} />
           </View>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
