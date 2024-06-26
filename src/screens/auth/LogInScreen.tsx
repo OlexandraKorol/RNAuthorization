@@ -12,14 +12,24 @@ import {useForm, Controller} from 'react-hook-form';
 import {CustomInput} from '../../components/CustomInput';
 import {Button} from 'react-native-paper';
 import {colors} from '../../theme/constants';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackParamList} from '../../components/Navigation';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 export const LogInScreen = () => {
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const {
     control,
     handleSubmit,
     formState: {errors},
   } = useForm();
-  const onSubmit = data => console.log({data});
+  const onSubmit = data => {
+    console.log({data});
+
+    if (errors) {
+      navigation.navigate('MainStack');
+    }
+  };
 
   console.log({errors});
   const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
