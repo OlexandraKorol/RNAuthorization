@@ -1,4 +1,4 @@
-import {FlatList, StyleSheet, View} from 'react-native';
+import {ActivityIndicator, FlatList, StyleSheet, View} from 'react-native';
 import React, {useCallback, useState} from 'react';
 import {ImageItem} from '../../components/ImageItem';
 import {useDataImageItemFetch} from '../../utils/useDataImageItemFetch';
@@ -6,7 +6,8 @@ import {ErrorMessage} from '../../theme/infoMessages';
 import {colors} from '../../theme/constants';
 
 export const FeedScreen = () => {
-  const {response, refetch, isError} = useDataImageItemFetch('list');
+  const {response, refetch, fetchMore, isError, isLoading} =
+    useDataImageItemFetch('list');
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = useCallback(() => {
@@ -20,22 +21,25 @@ export const FeedScreen = () => {
       });
   }, [refetch]);
 
-  if (!response || isError) {
+  if (isError) {
     return <ErrorMessage message={'Something went wrong'} />;
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       <FlatList
         data={response}
         keyExtractor={item => item.id.toString()}
-        style={styles.container}
         renderItem={({item}) => (
           <ImageItem source={item.download_url} author={item.author} />
         )}
+        onEndReached={fetchMore}
         onEndReachedThreshold={0.5}
         refreshing={refreshing}
         onRefresh={onRefresh}
+        ListFooterComponent={
+          isLoading && !refreshing ? <ActivityIndicator /> : null
+        }
       />
     </View>
   );
