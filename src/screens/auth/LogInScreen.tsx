@@ -7,7 +7,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useForm, Controller} from 'react-hook-form';
 import {CustomInput} from '../../components/CustomInput';
 import {colors} from '../../theme/constants';
@@ -15,24 +15,37 @@ import {useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '../../components/Navigation';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {CustomButton} from '../../components/CustomButton';
+import {observer} from 'mobx-react-lite';
+import authStore from '../../stores/authStore';
 
-export const LogInScreen = () => {
+export const LogInScreen = observer(() => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const {
     control,
     handleSubmit,
     formState: {errors},
   } = useForm();
+  const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+
+
   const onSubmit = data => {
-    console.log({data});
+    authStore.login(data.email, data.password);
 
     if (errors) {
+      authStore.isValidationCorrect = true;
+      authStore.isAuthenticated = true;
       navigation.navigate('MainStack');
+
+      console.log(authStore, 'logIn Screen');
+      
     }
   };
 
-  console.log({errors});
-  const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  useEffect(() => {
+    if (authStore.isAuthenticated) {
+      navigation.navigate('MainStack');
+    }
+  }, [navigation]);
 
   return (
     <SafeAreaView style={styles.wrapper}>
@@ -95,7 +108,7 @@ export const LogInScreen = () => {
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
-};
+});
 
 const styles = StyleSheet.create({
   wrapper: {
