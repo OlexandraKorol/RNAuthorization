@@ -1,11 +1,10 @@
 import axios from 'axios';
 import {useCallback, useEffect, useState} from 'react';
 
-export const useDataImageItemFetch = (param: string) => {
+export const useDataImageItemFetch = (param: string, page: string) => {
   const [isLoading, setIsLoading] = useState(false);
   const [response, setResponse] = useState<any[]>([]);
   const [isError, setIsError] = useState(false);
-  const [page, setPage] = useState(1);
 
   const fetchData = useCallback(async () => {
     setIsLoading(true);
@@ -26,17 +25,12 @@ export const useDataImageItemFetch = (param: string) => {
 
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
+  }, [fetchData, page]);
 
   const refetch = () => {
-    setPage(1);
     setResponse([]);
     return fetchData();
   };
 
-  const fetchMore = () => {
-    setPage(prevPage => prevPage + 1);
-  };
-
-  return {response, isLoading, isError, refetch, fetchMore};
+  return {response, isLoading, isError, refetch};
 };

@@ -1,4 +1,10 @@
-import {ActivityIndicator, FlatList, StyleSheet, View} from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  StyleSheet,
+  View,
+  RefreshControl,
+} from 'react-native';
 import React, {useCallback, useState} from 'react';
 import {ImageItem} from '../../components/ImageItem';
 import {useDataImageItemFetch} from '../../utils/useDataImageItemFetch';
@@ -6,8 +12,11 @@ import {Error} from '../../theme/infoMessages';
 import {colors} from '../../theme/constants';
 
 export const FeedScreen = () => {
-  const {response, refetch, fetchMore, isError, isLoading} =
-    useDataImageItemFetch('list');
+  const [page, setPage] = useState(1);
+  const {response, refetch, isError, isLoading} = useDataImageItemFetch(
+    'list',
+    `${page}`,
+  );
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = useCallback(() => {
@@ -15,6 +24,7 @@ export const FeedScreen = () => {
     refetch()
       .then(() => {
         setRefreshing(false);
+        setPage(prevPage => prevPage + 1);
       })
       .catch(() => {
         setRefreshing(false);
@@ -33,12 +43,12 @@ export const FeedScreen = () => {
         renderItem={({item}) => (
           <ImageItem source={item.download_url} author={item.author} />
         )}
-        onEndReached={fetchMore}
         onEndReachedThreshold={0.5}
-        refreshing={refreshing}
-        onRefresh={onRefresh}
         ListFooterComponent={
           isLoading && !refreshing ? <ActivityIndicator /> : null
+        }
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       />
     </View>
