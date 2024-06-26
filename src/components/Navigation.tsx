@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {LogInScreen} from '../screens/auth/LogInScreen';
@@ -8,6 +8,7 @@ import {ProfileScreen} from '../screens/main/ProfileScreen';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {StyleSheet} from 'react-native';
 import {colors} from '../theme/constants';
+import authStore from '../stores/authStore';
 
 export type RootStackParamList = {
   LogIn: undefined;
@@ -23,6 +24,21 @@ const Stack = createNativeStackNavigator();
 const Tab = createMaterialTopTabNavigator();
 
 export const Navigation = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      await authStore.loadAuthData();
+      setIsLoading(false);
+    };
+
+    checkAuth();
+  }, []);
+
+  if (isLoading) {
+    return null;
+  }
+
   const MainStack = () => {
     return (
       <SafeAreaView style={styles.topNavigatorWrapper} edges={['top']}>
