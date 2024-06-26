@@ -7,6 +7,9 @@ export const colors = Object.freeze({
 
   //error
   error: '#ef5350',
+
+  //main
+  mainPurple: '#63519F',
 });
 
 export const fontWeight = Object.freeze({
