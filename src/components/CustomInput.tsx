@@ -14,6 +14,7 @@ interface CustomInputProps {
   onChange: (text: string) => void;
   error: FieldError | undefined;
   label: string;
+  secureTextEntry?: boolean;
   onBlur:
     | ((e: NativeSyntheticEvent<TextInputFocusEventData>) => void)
     | undefined;
@@ -25,6 +26,7 @@ export const CustomInput = ({
   onBlur,
   error,
   label,
+  secureTextEntry = false,
 }: CustomInputProps) => {
   return (
     <View style={styles.conatiner}>
@@ -34,6 +36,7 @@ export const CustomInput = ({
         onChangeText={onChange}
         onBlur={onBlur}
         mode="outlined"
+        secureTextEntry={secureTextEntry}
       />
       {error && <ErrorMessage message={error.message} />}
     </View>

@@ -14,7 +14,7 @@ export const Loading = () => {
 export const Error = () => {
   return (
     <View style={styles.wrapper}>
-      <Text style={styles.errorComponent}>Ups, something went wrong</Text>
+      <Text style={styles.errorComponent}>UPS, something went wrong</Text>
     </View>
   );
 };
@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
   wrapper: {
     backgroundColor: colors.white,
     flex: 1,
+    width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -40,7 +41,8 @@ const styles = StyleSheet.create({
   },
   errorComponent: {
     color: colors.error,
-    fontSize: 40,
+    fontSize: 30,
+    textAlign: 'center',
   },
   error: {
     color: colors.error,

@@ -2,7 +2,7 @@ import {ActivityIndicator, FlatList, StyleSheet, View} from 'react-native';
 import React, {useCallback, useState} from 'react';
 import {ImageItem} from '../../components/ImageItem';
 import {useDataImageItemFetch} from '../../utils/useDataImageItemFetch';
-import {ErrorMessage} from '../../theme/infoMessages';
+import {Error} from '../../theme/infoMessages';
 import {colors} from '../../theme/constants';
 
 export const FeedScreen = () => {
@@ -22,7 +22,7 @@ export const FeedScreen = () => {
   }, [refetch]);
 
   if (isError) {
-    return <ErrorMessage message={'Something went wrong'} />;
+    return <Error />;
   }
 
   return (

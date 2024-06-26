@@ -9,6 +9,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {StyleSheet} from 'react-native';
 import {colors} from '../theme/constants';
 import authStore from '../stores/authStore';
+import {Loading} from '../theme/infoMessages';
 
 export type RootStackParamList = {
   LogIn: undefined;
@@ -36,7 +37,7 @@ export const Navigation = () => {
   }, []);
 
   if (isLoading) {
-    return null;
+    return <Loading />;
   }
 
   const MainStack = () => {

@@ -95,6 +95,7 @@ export const LogInScreen = observer(() => {
                   error={error}
                   onBlur={onBlur}
                   label="Password"
+                  secureTextEntry={true}
                 />
               )}
             />
