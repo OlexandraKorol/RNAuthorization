@@ -31,8 +31,7 @@ export const Navigation = () => {
             tabBarActiveTintColor: colors.white,
             tabBarLabelStyle: {fontSize: 15},
             tabBarStyle: {backgroundColor: colors.mainPurple},
-          }}
-          style={{}}>
+          }}>
           <Tab.Screen name="Feed" component={FeedScreen} />
           <Tab.Screen name="Profile" component={ProfileScreen} />
         </Tab.Navigator>

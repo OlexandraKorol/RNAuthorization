@@ -2,7 +2,7 @@ import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import {UserInfoCard} from '../../components/UserInfoCard';
 import {useUserProfileImageFetch} from '../../utils/useUserProfileImageFetch';
-import {ErrorMessage} from '../../theme/infoMessages';
+import {Error} from '../../theme/infoMessages';
 import {colors} from '../../theme/constants';
 import {CustomButton} from '../../components/CustomButton';
 import {observer} from 'mobx-react-lite';
@@ -22,7 +22,7 @@ export const ProfileScreen = observer(() => {
   };
 
   if (!response || isError) {
-    return <ErrorMessage message={'Something went wrong'} />;
+    return <Error />;
   }
 
   return (

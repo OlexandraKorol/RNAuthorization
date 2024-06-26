@@ -11,6 +11,14 @@ export const Loading = () => {
   );
 };
 
+export const Error = () => {
+  return (
+    <View style={styles.wrapper}>
+      <Text style={styles.errorComponent}>Ups, something went wrong</Text>
+    </View>
+  );
+};
+
 interface ErrorMessageProps {
   message?: string;
 }
@@ -28,6 +36,10 @@ const styles = StyleSheet.create({
   },
   title: {
     color: colors.grey,
+    fontSize: 40,
+  },
+  errorComponent: {
+    color: colors.error,
     fontSize: 40,
   },
   error: {

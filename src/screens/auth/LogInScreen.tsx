@@ -25,19 +25,16 @@ export const LogInScreen = observer(() => {
     handleSubmit,
     formState: {errors},
   } = useForm();
+
   const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
-
-  const onSubmit = data => {
-    authStore.login(data.email, data.password);
+  const onSubmit = ({email, password}: any) => {
+    authStore.login(email, password);
 
     if (errors) {
       authStore.isValidationCorrect = true;
       authStore.isAuthenticated = true;
       navigation.navigate('MainStack');
-
-      console.log(authStore, 'logIn Screen');
-      
     }
   };
 
