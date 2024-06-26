@@ -35,7 +35,4 @@ const styles = StyleSheet.create({
     fontSize: 13,
     marginTop: 5,
   },
-  subTitle: {
-    fontSize: 20,
-  },
 });
