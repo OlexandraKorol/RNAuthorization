@@ -20,6 +20,7 @@ import authStore from '../../stores/authStore';
 
 export const LogInScreen = observer(() => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
   const {
     control,
     handleSubmit,
@@ -50,7 +51,7 @@ export const LogInScreen = observer(() => {
         style={styles.container}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.content}>
+          <View>
             <Controller
               control={control}
               name="email"
@@ -119,5 +120,4 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     justifyContent: 'center',
   },
-  content: {},
 });
